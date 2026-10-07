@@ -1,0 +1,84 @@
+{
+  "motion_encoder": {
+    "type": "omg_motion",
+    "checkpoint": "../models/motion_encoder/weights.pt",
+    "architecture": "motion_encoder/model.py",
+    "input_key": "body_pos_local",
+    "flatten_features": true,
+    "l2_normalize": false,
+    "batch_size": 512
+  },
+  "cross_modal_evaluators": {
+    "audio_motion": {
+      "factory": "scripts.evaluation.encoders.audio_adapter:AudioMotionAdapter",
+      "root": "audio_motion_evaluator",
+      "checkpoint": "../models/audio_motion_evaluator/checkpoints/audio_motion_evaluator.pt",
+      "omg_root": "../third_party/OMG",
+      "omg_checkpoint": "../third_party/OMG/models/evaluator/step_004000.pt",
+      "condition_asset": "raw_audio",
+      "audio_chunk_batch_size": 2048,
+      "motion_window_batch_size": 8192
+    },
+    "rhythm_motion": {
+      "factory": "scripts.evaluation.encoders.cross_modal:RhythmMotionAdapter",
+      "root": "rhythm_motion_evaluator",
+      "checkpoint": "../models/rhythm_motion_evaluator/checkpoints/rhythm_motion_evaluator.pt",
+      "omg_root": "../third_party/OMG",
+      "omg_checkpoint": "../third_party/OMG/models/evaluator/step_004000.pt",
+      "hf_home": "../models/rhythm_motion_evaluator/hf_cache",
+      "condition_asset": "raw_audio",
+      "audio_chunk_batch_size": 2048,
+      "motion_window_batch_size": 8192
+    },
+    "trajectory_motion": {
+      "factory": "scripts.evaluation.encoders.trajectory_adapter:TrajectoryMotionAdapter",
+      "root": "trajectory_motion_evaluator",
+      "checkpoint": "../models/trajectory_motion_evaluator/checkpoints/rotation_motion_evaluator.pt",
+      "omg_root": "../third_party/OMG",
+      "omg_checkpoint": "../third_party/OMG/models/evaluator/step_004000.pt",
+      "condition_asset": "trajectory_state"
+    },
+    "text_motion": {
+      "factory": "scripts.evaluation.encoders.text_adapter:TextMotionAdapter",
+      "root": "text_motion_evaluator",
+      "checkpoint": "../models/text_motion_evaluator/checkpoints/text_motion_evaluator.pt",
+      "omg_root": "../third_party/OMG",
+      "text_model_path": "../models/text_motion_evaluator/t5-base",
+      "motion_key": "body_pos_local",
+      "motion_fps": 30,
+      "text_batch_size": 256
+    },
+    "video_motion_human": {
+      "factory": "scripts.evaluation.encoders.video_adapter:VideoMotionAdapter",
+      "root": "video_motion_evaluator_human",
+      "checkpoint": "../models/video_motion_evaluator_human/checkpoints/human_video_motion_evaluator.pt",
+      "omg_root": "../third_party/OMG",
+      "omg_checkpoint": "../third_party/OMG/models/evaluator/step_004000.pt",
+      "video_kind": "human",
+      "condition_asset": "video",
+      "xclip_cache": "../models/video_motion_evaluator_human/xclip-base-patch32",
+      "xclip_model_path": "../models/video_motion_evaluator_human/xclip-base-patch32",
+      "video_condition_batch_size": 24,
+      "video_decode_workers": 24,
+      "xclip_window_batch_size": 128,
+      "motion_qpos_batch_size": 512,
+      "motion_window_batch_size": 4096
+    },
+    "video_motion_skel": {
+      "factory": "scripts.evaluation.encoders.video_adapter:VideoMotionAdapter",
+      "root": "video_motion_evaluator_skel",
+      "checkpoint": "../models/video_motion_evaluator_skel/checkpoints/skeleton_video_motion_evaluator.pt",
+      "omg_root": "../third_party/OMG",
+      "omg_checkpoint": "../third_party/OMG/models/evaluator/step_004000.pt",
+      "video_kind": "skeleton",
+      "condition_asset": "video",
+      "xclip_cache": "../models/video_motion_evaluator_skel/xclip-base-patch32",
+      "xclip_model_path": "../models/video_motion_evaluator_skel/xclip-base-patch32",
+      "video_condition_batch_size": 24,
+      "video_decode_workers": 24,
+      "xclip_window_batch_size": 128,
+      "motion_qpos_batch_size": 512,
+      "motion_window_batch_size": 4096
+    }
+  }
+}

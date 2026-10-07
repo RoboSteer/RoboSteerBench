@@ -1,0 +1,2 @@
+# Install the PyTorch build matching the target CUDA runtime separately.
+numpy>=1.24,<2

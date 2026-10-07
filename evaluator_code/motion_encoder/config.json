@@ -1,0 +1,14 @@
+{
+  "name": "OMG MotionEncoder",
+  "format": "pytorch_state_dict",
+  "architecture": "model.py",
+  "checkpoint": "weights.pt",
+  "input_key": "body_pos_local",
+  "input_shape": ["batch", "frames", 30, 3],
+  "embedding_dim": 512,
+  "output_l2_normalized": true,
+  "training_fps": 30,
+  "training_segment_frames": 60,
+  "source_checkpoint": "OMG/models/evaluator/step_004000.pt",
+  "source_checkpoint_sha256": "e346790c5ce33c42840aa19f7fcc2891a4cab27e0d92e23bfaff7d48cb339c40"
+}

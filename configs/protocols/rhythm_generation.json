@@ -1,0 +1,12 @@
+{
+  "task": "rhythm_generation",
+  "fps": 50,
+  "num_frames": 122,
+  "motion_key": "body_pos_local",
+  "embedding_batch_size": 32,
+  "audio_batch_size": 8,
+  "diversity_num_pairs": 300,
+  "diversity_seed": 1234,
+  "generation_metrics": ["FID", "Diversity", "Contact Sliding", "BAS-Gen", "BAS-Gap"],
+  "steering_metrics": ["BG", "BS_Level1", "BS_Level2", "BS_Level3"]
+}
